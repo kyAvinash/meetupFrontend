@@ -18,7 +18,8 @@ const AddEventsForm = () => {
     tags: [""],
   });
 
-  /*const handleChange = (event) => {
+  /*
+  const handleChange = (event) => {
     const { name, value, type } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -29,40 +30,27 @@ const AddEventsForm = () => {
 
   const handleChange = (event) => {
     const { name, value, type } = event.target;
+    const [mainKey, subKey] = name.split(".");
 
     setFormData((prevFormData) => {
-      let newValue = type === "number" ? parseInt(value) : value;
-
-      // Handling nested fields properly
-      if (name.startsWith("speakers.")) {
-        const field = name.split(".")[1]; // Extract "name", "bio", or "image"
+      if (subKey) {
+        // Handle nested objects
         return {
           ...prevFormData,
-          speakers: [{ ...prevFormData.speakers[0], [field]: newValue }],
+          [mainKey]: prevFormData[mainKey].map((item, index) => {
+            return {
+              ...item,
+              [subKey]: type === "number" ? parseInt(value) : value,
+            };
+          }),
         };
-      }
-
-      if (name.startsWith("sessionTimings.")) {
-        const field = name.split(".")[1]; // Extract "startTime" or "endTime"
+      } else {
+        // Handle root level keys
         return {
           ...prevFormData,
-          sessionTimings: [
-            { ...prevFormData.sessionTimings[0], [field]: newValue },
-          ],
+          [name]: type === "number" ? parseInt(value) : value,
         };
       }
-
-      if (name.startsWith("additionalInfo.")) {
-        const field = name.split(".")[1]; // Extract "dressCode" or "ageRestriction"
-        return {
-          ...prevFormData,
-          additionalInfo: [
-            { ...prevFormData.additionalInfo[0], [field]: newValue },
-          ],
-        };
-      }
-
-      return { ...prevFormData, [name]: newValue };
     });
   };
 
