@@ -67,8 +67,106 @@ const AddEventsForm = () => {
       <h1 className="display-5">Welcome, Publish your event on our app.</h1>
       <form onSubmit={handleSubmit}>
         <div className="row container d-flex justify-content-center align-items-center py-2">
-          {/* Other fields omitted for brevity */}
+          {/* Title */}
+          <div className="mb-3 col-md-8">
+            <label htmlFor="title" className="form-label">
+              1. Title
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="title"
+              name="title"
+              value={formData.title}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </div>
 
+          {/* Date */}
+          <div className="mb-3 col-md-8">
+            <label htmlFor="date" className="form-label">
+              2. Date
+            </label>
+            <input
+              type="date"
+              className="form-control"
+              id="date"
+              name="date"
+              value={formData.date}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </div>
+
+          {/* Type */}
+          <div className="mb-3 col-md-8">
+            <label htmlFor="type" className="form-label">
+              3. Type
+            </label>
+            <select
+              className="form-select"
+              id="type"
+              name="type"
+              value={formData.type}
+              onChange={(e) => handleChange(e)}
+            >
+              <option value="Both">Both</option>
+              <option value="Online">Online</option>
+              <option value="Offline">Offline</option>
+            </select>
+          </div>
+
+          {/* Thumbnail */}
+          <div className="mb-3 col-md-8">
+            <label htmlFor="thumbnail" className="form-label">
+              4. Thumbnail
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="thumbnail"
+              placeholder="https://example.com/thumbnail.jpg"
+              name="thumbnail"
+              value={formData.thumbnail}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </div>
+
+          {/* Description */}
+          <div className="mb-3 col-md-8">
+            <label htmlFor="description" className="form-label">
+              5. Description
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </div>
+
+          {/* Topics */}
+          <div className="mb-3 col-md-8">
+            <label htmlFor="topics" className="form-label">
+              6. Topics
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="topics"
+              name="topics"
+              value={formData.topics}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </div>
+
+          {/* Session Timings */}
           <div className="bg-light py-3 col-md-8">
             <label htmlFor="sessionTime" className="form-label">
               7. Session Timings
@@ -104,6 +202,7 @@ const AddEventsForm = () => {
             ))}
           </div>
 
+          {/* Speakers */}
           <div className="bg-light mt-3 py-3 col-md-8">
             <label htmlFor="speakers" className="form-label">
               8. Speakers
@@ -151,8 +250,52 @@ const AddEventsForm = () => {
             ))}
           </div>
 
-          {/* Other fields omitted for brevity */}
+          {/* Pricing */}
+          <div className="mt-3 col-md-8">
+            <label htmlFor="pricing" className="form-label">
+              9. Pricing
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              id="pricing"
+              name="pricing"
+              value={formData.pricing}
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
 
+          {/* Venue */}
+          <div className="mt-3 col-md-8">
+            <label htmlFor="venue" className="form-label">
+              10. Venue
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="venue"
+              name="venue"
+              value={formData.venue}
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+
+          {/* Address */}
+          <div className="mt-3 col-md-8">
+            <label htmlFor="address" className="form-label">
+              11. Address
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={(e) => handleChange(e)}
+            />
+          </div>
+
+          {/* Additional Info */}
           <div className="bg-light mt-3 py-3 col-md-8">
             <label htmlFor="additionalInfo" className="form-label">
               12. Additional Info
@@ -187,6 +330,7 @@ const AddEventsForm = () => {
             ))}
           </div>
 
+          {/* Tags */}
           <div className="mt-3 col-md-8">
             <label htmlFor="tags" className="form-label">
               13. Tags
@@ -207,12 +351,14 @@ const AddEventsForm = () => {
             />
           </div>
 
+          {/* Submit Button */}
           <div className="mt-3 col-md-8 mb-3 text-center">
             <button type="submit" className="btn btn-primary">
               Send
             </button>
           </div>
 
+          {/* Success Message */}
           {successMessage && (
             <div className="alert alert-success col-md-8">{successMessage}</div>
           )}
