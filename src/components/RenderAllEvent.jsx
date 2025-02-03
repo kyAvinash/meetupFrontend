@@ -3,7 +3,7 @@ import GenerateCard from "./GenerateCard";
 
 const RenderAllEvent = () => {
   const { data, loading, error } = useFetch(
-    "https://meet-up-bay.vercel.app//events",
+    "https://meet-up-bay.vercel.app/events",
   );
   return (
     <>

@@ -6,7 +6,7 @@ import useFetch from "../useFetch";
 const EventDetails = () => {
   const eventId = useParams();
   const { data, loading, error } = useFetch(
-    `https://meet-up-bay.vercel.app//events/${eventId.eventId}`,
+    `https://meet-up-bay.vercel.app/events/${eventId.eventId}`,
   );
   return (
     <>

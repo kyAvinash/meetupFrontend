@@ -8,7 +8,7 @@ const SearchDetails = () => {
   const searchQuery = useParams();
   //console.log(searchQuery);
   const { data, loading, error } = useFetch(
-    `https://meet-up-bay.vercel.app//events/search/${searchQuery.searchQuery}`,
+    `https://meet-up-bay.vercel.app/events/search/${searchQuery.searchQuery}`,
   );
   return (
     <>
