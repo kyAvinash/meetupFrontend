@@ -18,7 +18,7 @@ const AddEventsForm = () => {
     tags: [""],
   });
 
-  /*
+ 
   const handleChange = (event) => {
     const { name, value, type } = event.target;
     setFormData((prevFormData) => ({
@@ -26,8 +26,8 @@ const AddEventsForm = () => {
       [name]: type === "number" ? parseInt(value) : value,
     }));
   };
-*/
 
+/*
   const handleChange = (event) => {
     const { name, value, type } = event.target;
     const [mainKey, subKey] = name.split(".");
@@ -53,7 +53,7 @@ const AddEventsForm = () => {
       }
     });
   };
-
+*/
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
