@@ -30,7 +30,7 @@ const AddEventsForm = () => {
     event.preventDefault();
     try {
       const response = await fetch(
-        "meet-up-bay.vercel.app/events",
+        "https://meet-up-bay.vercel.app//events",
         {
           method: "POST",
           headers: {
