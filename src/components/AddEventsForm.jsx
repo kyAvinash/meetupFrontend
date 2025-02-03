@@ -9,7 +9,7 @@ const AddEventsForm = () => {
     thumbnail: "",
     description: "",
     topics: "",
-    sessionTimings: [{ startTime: "", endTime: "" }],
+    sessionTimings: { startTime: "", endTime: "" }, // Changed to object
     speakers: [{ name: "", bio: "", image: "" }],
     pricing: 0,
     venue: "",
@@ -24,15 +24,25 @@ const AddEventsForm = () => {
 
     setFormData((prevFormData) => {
       if (subKey) {
-        // Handle nested objects
-        return {
-          ...prevFormData,
-          [mainKey]: prevFormData[mainKey].map((item, i) =>
-            i === index ? { ...item, [subKey]: value } : item
-          ),
-        };
+        if (Array.isArray(prevFormData[mainKey])) {
+          // Handle arrays (speakers, additionalInfo)
+          return {
+            ...prevFormData,
+            [mainKey]: prevFormData[mainKey].map((item, i) =>
+              i === index ? { ...item, [subKey]: value } : item
+            ),
+          };
+        } else {
+          // Handle objects (sessionTimings)
+          return {
+            ...prevFormData,
+            [mainKey]: {
+              ...prevFormData[mainKey],
+              [subKey]: value,
+            },
+          };
+        }
       } else {
-        // Handle root level keys
         return {
           ...prevFormData,
           [name]: type === "number" ? parseInt(value) : value,
@@ -172,37 +182,35 @@ const AddEventsForm = () => {
               7. Session Timings
             </label>
             <br />
-            {formData.sessionTimings.map((timing, index) => (
-              <div key={index}>
-                <label htmlFor="st" className="form-label">
-                  Start Time
-                </label>
-                <input
-                  type="text"
-                  id="st"
-                  className="form-control"
-                  placeholder="Tue Aug 15 2023 10:00:00 AM"
-                  name="sessionTimings.startTime"
-                  value={timing.startTime}
-                  onChange={(e) => handleChange(e, index)}
-                />
-                <label htmlFor="et" className="form-label">
-                  End Time
-                </label>
-                <input
-                  type="text"
-                  id="et"
-                  className="form-control"
-                  placeholder="Tue Aug 15 2023 12:00:00 PM"
-                  name="sessionTimings.endTime"
-                  value={timing.endTime}
-                  onChange={(e) => handleChange(e, index)}
-                />
-              </div>
-            ))}
+            <div>
+              <label htmlFor="st" className="form-label">
+                Start Time
+              </label>
+              <input
+                type="text"
+                id="st"
+                className="form-control"
+                placeholder="Tue Aug 15 2023 10:00:00 AM"
+                name="sessionTimings.startTime"
+                value={formData.sessionTimings.startTime}
+                onChange={handleChange}
+              />
+              <label htmlFor="et" className="form-label">
+                End Time
+              </label>
+              <input
+                type="text"
+                id="et"
+                className="form-control"
+                placeholder="Tue Aug 15 2023 12:00:00 PM"
+                name="sessionTimings.endTime"
+                value={formData.sessionTimings.endTime}
+                onChange={handleChange}
+              />
+            </div>
           </div>
 
-          {/* Speakers */}
+          {/* Speakers (keep as array) */}
           <div className="bg-light mt-3 py-3 col-md-8">
             <label htmlFor="speakers" className="form-label">
               8. Speakers
