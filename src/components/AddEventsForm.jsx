@@ -18,27 +18,64 @@ const AddEventsForm = () => {
     tags: [""],
   });
 
-  const handleChange = (event) => {
+  /*const handleChange = (event) => {
     const { name, value, type } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: type === "number" ? parseInt(value) : value,
     }));
   };
+*/
+
+  const handleChange = (event) => {
+    const { name, value, type } = event.target;
+
+    setFormData((prevFormData) => {
+      let newValue = type === "number" ? parseInt(value) : value;
+
+      // Handling nested fields properly
+      if (name.startsWith("speakers.")) {
+        const field = name.split(".")[1]; // Extract "name", "bio", or "image"
+        return {
+          ...prevFormData,
+          speakers: [{ ...prevFormData.speakers[0], [field]: newValue }],
+        };
+      }
+
+      if (name.startsWith("sessionTimings.")) {
+        const field = name.split(".")[1]; // Extract "startTime" or "endTime"
+        return {
+          ...prevFormData,
+          sessionTimings: [
+            { ...prevFormData.sessionTimings[0], [field]: newValue },
+          ],
+        };
+      }
+
+      if (name.startsWith("additionalInfo.")) {
+        const field = name.split(".")[1]; // Extract "dressCode" or "ageRestriction"
+        return {
+          ...prevFormData,
+          additionalInfo: [
+            { ...prevFormData.additionalInfo[0], [field]: newValue },
+          ],
+        };
+      }
+
+      return { ...prevFormData, [name]: newValue };
+    });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(
-        "https://meet-up-bay.vercel.app/events",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+      const response = await fetch("https://meet-up-bay.vercel.app/events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(formData),
+      });
       if (!response.ok) {
         setSuccessMessage("Something went wrong, please try again later");
       }
